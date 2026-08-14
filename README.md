@@ -2,8 +2,6 @@
 
 Standalone Next.js marketing site for **Ekklesia** — church management and spiritual growth.
 
-This folder is fully independent of the Spring Boot API. You can delete `ekklesia-web/` without affecting the backend, or copy it to another repository and run it alone.
-
 ## Stack
 
 - Next.js 15 (App Router)
@@ -24,7 +22,6 @@ This folder is fully independent of the Spring Boot API. You can delete `ekklesi
 ## Run locally
 
 ```bash
-cd ekklesia-web
 npm install
 npm run dev
 ```
@@ -45,7 +42,7 @@ Open [http://localhost:3000](http://localhost:3000).
 This site is a Next.js app. In [Vercel](https://vercel.com):
 
 1. Import the GitHub repo `DonaldKnut/ekklesia`.
-2. Set **Root Directory** to `ekklesia-web`.
+2. Leave **Root Directory** empty (this repo is the Next.js app).
 3. Framework Preset: Next.js (auto-detected).
 4. Build command: `npm run build`
 5. Deploy.

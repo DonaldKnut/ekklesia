@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --stone: #e8edf2;
+  --stone-deep: #d5dde6;
+  --ink: #0e1419;
+  --ink-soft: #3a4450;
+  --teal: #0b6e6b;
+  --teal-deep: #085552;
+  --teal-mist: #c5e4e2;
+  --bronze: #a67c52;
+  --white: #fbfcfd;
+  --line: rgba(14, 20, 25, 0.1);
+}
+
+@theme inline {
+  --color-stone: var(--stone);
+  --color-stone-deep: var(--stone-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-teal: var(--teal);
+  --color-teal-deep: var(--teal-deep);
+  --color-teal-mist: var(--teal-mist);
+  --color-bronze: var(--bronze);
+  --color-white: var(--white);
+  --color-line: var(--line);
+  --font-serif: var(--font-instrument);
+  --font-sans: var(--font-sora);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--stone);
+  color: var(--ink);
+  font-family: var(--font-sora), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--teal-mist);
+  color: var(--ink);
+}
+
+.grain {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.atmosphere {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(11, 110, 107, 0.18), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 15% 80%, rgba(166, 124, 82, 0.1), transparent 50%),
+    linear-gradient(165deg, #dfe7ef 0%, #e8edf2 40%, #d8e2ea 100%);
+}
+
+.prose-display {
+  font-family: var(--font-instrument), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}

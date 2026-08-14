@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-label="Placeholder: People">
+  <defs>
+    <linearGradient id="g" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#085552"/>
+      <stop offset="50%" stop-color="#0E1419"/>
+      <stop offset="100%" stop-color="#3a4450"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <circle cx="420" cy="240" r="220" fill="#A67C52" opacity="0.14"/>
+  <text x="120" y="920" fill="#FBFCFD" font-family="Georgia, serif" font-size="64">02 · People</text>
+  <text x="120" y="980" fill="#c5e4e2" font-family="system-ui,sans-serif" font-size="28">Replace with Flow image: 02-people.jpg</text>
+</svg>

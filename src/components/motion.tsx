@@ -21,7 +21,7 @@ export function FadeRise({
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.75, delay, ease }}
+      transition={{ duration: 0.85, delay, ease }}
       {...props}
     >
       {children}

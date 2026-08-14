@@ -29,7 +29,7 @@ export function InteractiveDashboardPreview() {
           <h2 className="prose-cinzel text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
             Experience Ekklesia in Action
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-300">
+          <p className="prose-subtitle mt-4 text-lg text-slate-200/85 sm:text-xl">
             Click through the live ministry tools below to see how Ekklesia unifies your people, worship services, giving, and prayer requests into one serene system.
           </p>
         </div>

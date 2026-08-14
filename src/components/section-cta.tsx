@@ -18,7 +18,7 @@ export function SectionCta() {
               Give Your Ministry A Mindblowing Digital Sanctuary.
             </h2>
 
-            <p className="mx-auto max-w-xl text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+            <p className="prose-subtitle mx-auto max-w-xl text-lg text-slate-200/85 sm:text-xl">
               Whether you shepherd a planting fellowship of 50 believers or a multi-site network of thousands, Ekklesia scales effortlessly with your mission.
             </p>
 

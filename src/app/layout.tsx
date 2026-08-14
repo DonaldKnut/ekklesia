@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cinzel, Plus_Jakarta_Sans, Instrument_Serif, Sora } from "next/font/google";
+import { Cinzel, Manrope, Cormorant_Garamond } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
@@ -10,22 +10,17 @@ const cinzel = Cinzel({
   display: "swap",
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-jakarta",
+  variable: "--font-manrope",
   display: "swap",
 });
 
-const instrument = Instrument_Serif({
-  weight: "400",
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-instrument",
-  display: "swap",
-});
-
-const sora = Sora({
-  subsets: ["latin"],
-  variable: "--font-sora",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
   display: "swap",
 });
 
@@ -52,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${cinzel.variable} ${jakarta.variable} ${instrument.variable} ${sora.variable} font-sans antialiased selection:bg-amber-500/30 selection:text-amber-200`}
+        className={`${cinzel.variable} ${manrope.variable} ${cormorant.variable} font-sans antialiased selection:bg-amber-500/30 selection:text-amber-200`}
       >
         <SiteHeader />
         <main className="min-h-screen">{children}</main>

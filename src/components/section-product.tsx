@@ -14,7 +14,7 @@ export function SectionProduct() {
               <h2 className="prose-cinzel text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
                 Church Management & Spiritual Growth — Unified as One.
               </h2>
-              <p className="mt-5 text-base sm:text-lg text-slate-300 leading-relaxed font-light">
+              <p className="prose-subtitle mt-5 text-lg text-slate-200/85 sm:text-xl">
                 Most platforms only handle spreadsheets or only stream media. Ekklesia bridges administrative order with pastoral care — empowering leaders to manage members, events, and tithes while feeding spiritual growth through devotionals and intercessory prayer.
               </p>
             </FadeRise>

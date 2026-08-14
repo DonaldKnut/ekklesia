@@ -23,9 +23,8 @@
   --color-gold-glow: var(--gold-glow);
   --color-emerald-grace: var(--emerald-grace);
   --font-cinzel: var(--font-cinzel);
-  --font-jakarta: var(--font-jakarta);
-  --font-serif: var(--font-cinzel);
-  --font-sans: var(--font-jakarta);
+  --font-cormorant: var(--font-cormorant);
+  --font-sans: var(--font-manrope);
 }
 
 * {
@@ -41,7 +40,8 @@ body {
   margin: 0;
   background-color: var(--obsidian);
   color: var(--alabaster);
-  font-family: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-manrope), "Segoe UI", system-ui, sans-serif;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -135,6 +135,14 @@ body {
 .prose-cinzel {
   font-family: var(--font-cinzel), Georgia, serif;
   letter-spacing: -0.01em;
+}
+
+.prose-subtitle {
+  font-family: var(--font-cormorant), "Palatino Linotype", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.55;
 }
 
 .focus-ring:focus-visible {

@@ -25,7 +25,7 @@ export default function SolutionsPage() {
             <h1 className="prose-cinzel text-4xl sm:text-6xl font-bold tracking-tight text-white max-w-4xl leading-tight">
               Tailored Solutions for Every Ministry Calling.
             </h1>
-            <p className="mt-5 max-w-2xl text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+            <p className="prose-subtitle mt-5 max-w-2xl text-lg text-slate-200/85 sm:text-xl">
               Different roles carry unique responsibilities in the body of Christ. Ekklesia provides dedicated views and permissions tailored to how your church operates.
             </p>
           </FadeRise>
@@ -61,7 +61,7 @@ export default function SolutionsPage() {
                       <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-2">
                         ✨ The Ekklesia Outcome
                       </span>
-                      <p className="text-base sm:text-lg text-slate-200 leading-relaxed font-light">
+                      <p className="prose-subtitle text-lg text-slate-200/90 sm:text-xl">
                         {solution.outcome}
                       </p>
                     </div>
@@ -98,7 +98,7 @@ export default function SolutionsPage() {
           <h2 className="prose-cinzel text-3xl sm:text-4xl font-bold text-white">
             Transform Your Ministry Ecosystem Today.
           </h2>
-          <p className="mt-4 text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
+          <p className="prose-subtitle mx-auto mt-4 max-w-xl text-lg text-slate-200/80">
             Speak with our team about how Ekklesia can serve your specific congregation size and denomination.
           </p>
           <Link

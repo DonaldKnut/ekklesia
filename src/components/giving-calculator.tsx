@@ -20,7 +20,7 @@ export function GivingCalculator() {
           <h2 className="prose-cinzel text-3xl sm:text-4xl font-bold text-white tracking-tight">
             Giving & Tithes Calculator
           </h2>
-          <p className="text-sm sm:text-base text-slate-300 mt-2">
+          <p className="prose-subtitle mt-3 text-lg text-slate-200/85">
             See how centralized online giving via Paystack and Stripe elevates generosity and provides clear audit records for your church.
           </p>
         </div>

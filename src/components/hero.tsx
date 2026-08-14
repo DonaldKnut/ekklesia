@@ -60,7 +60,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.2, ease }}
-            className="text-base sm:text-xl text-slate-300 leading-relaxed font-light max-w-2xl"
+            className="prose-subtitle max-w-2xl text-lg text-slate-200/90 sm:text-2xl"
           >
             Unify your congregation records, Sunday gatherings, Paystack & Stripe giving, prayer requests, and daily faith devotionals into one safe, beautiful sanctuary — so your ministry flourishes without the mess.
           </motion.p>

@@ -23,7 +23,7 @@ export default function FeaturesPage() {
             <h1 className="prose-cinzel text-4xl sm:text-6xl font-bold tracking-tight text-white max-w-4xl leading-tight">
               Everything Your Sanctuary Needs in One Safe Place.
             </h1>
-            <p className="mt-5 max-w-2xl text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+            <p className="prose-subtitle mt-5 max-w-2xl text-lg text-slate-200/85 sm:text-xl">
               From first-time visitor welcoming to recurring tithes and pastoral prayer intercession — every tool is designed to work seamlessly together.
             </p>
           </FadeRise>
@@ -63,7 +63,7 @@ export default function FeaturesPage() {
               <h2 className="prose-cinzel mt-1 text-3xl sm:text-4xl font-bold text-white">
                 {group.title}
               </h2>
-              <p className="mt-3 max-w-2xl text-base text-slate-300 font-light">
+              <p className="prose-subtitle mt-3 max-w-2xl text-lg text-slate-200/80">
                 {group.intro}
               </p>
             </FadeRise>
@@ -95,7 +95,7 @@ export default function FeaturesPage() {
           <h2 className="prose-cinzel text-3xl sm:text-4xl font-bold text-white">
             Ready to See Ekklesia in Action for Your Church?
           </h2>
-          <p className="mt-4 text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
+          <p className="prose-subtitle mx-auto mt-4 max-w-xl text-lg text-slate-200/80">
             Book a personalized walkthrough with our church platform team.
           </p>
           <Link

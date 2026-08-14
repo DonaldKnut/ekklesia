@@ -17,7 +17,7 @@ export function SectionProblem() {
           <h2 className="prose-cinzel text-3xl sm:text-5xl font-bold tracking-tight text-white max-w-3xl leading-tight">
             Shepherding God&apos;s flock should not feel fragmented.
           </h2>
-          <p className="mt-4 max-w-2xl text-base sm:text-lg text-slate-300 leading-relaxed font-light">
+          <p className="prose-subtitle mt-4 max-w-2xl text-lg text-slate-200/85 sm:text-xl">
             When church member lists, prayer requests, tithe records, and group messages sit in isolated apps, pastoral leaders spend more energy fighting spreadsheets than discipling people.
           </p>
         </FadeRise>

@@ -21,7 +21,7 @@ export default function ContactPage() {
               <h1 className="prose-cinzel text-4xl sm:text-6xl font-bold tracking-tight text-white leading-tight">
                 Book A Sacred Demo.
               </h1>
-              <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+              <p className="prose-subtitle text-lg text-slate-200/85 sm:text-xl">
                 Tell us about your congregation. We will arrange a tailored walk-through showing how Ekklesia fits your church&apos;s structure, giving, and care workflow.
               </p>
             </FadeRise>

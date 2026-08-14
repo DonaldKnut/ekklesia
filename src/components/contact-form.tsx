@@ -1,33 +1,69 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { contactSchema, flattenZodErrors, type ContactInput } from "@/lib/schemas";
+
+const empty: ContactInput = {
+  name: "",
+  email: "",
+  church: "",
+  role: "Lead Pastor",
+  size: "100-500 members",
+  message: "",
+};
 
 export function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [church, setChurch] = useState("");
-  const [role, setRole] = useState("Lead Pastor");
-  const [size, setSize] = useState("100-500 members");
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState(false);
+  const [values, setValues] = useState<ContactInput>(empty);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [status, setStatus] = useState<"idle" | "saving" | "sent" | "failed">("idle");
 
-  function onSubmit(e: FormEvent) {
+  function setField<K extends keyof ContactInput>(key: K, value: ContactInput[K]) {
+    setValues((prev) => ({ ...prev, [key]: value }));
+    if (errors[key]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[key];
+        return next;
+      });
+    }
+  }
+
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      setError(true);
+    const parsed = contactSchema.safeParse(values);
+    if (!parsed.success) {
+      setErrors(flattenZodErrors(parsed.error));
       return;
     }
 
-    setError(false);
-    setSubmitted(true);
+    setStatus("saving");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed.data),
+      });
+      const data = (await res.json()) as { ok?: boolean; errors?: Record<string, string> };
+      if (!res.ok || !data.ok) {
+        setErrors(data.errors ?? { form: "Unable to send right now. Please try again." });
+        setStatus("failed");
+        return;
+      }
+      setStatus("sent");
+    } catch {
+      setErrors({ form: "Unable to send right now. Please try again." });
+      setStatus("failed");
+    }
   }
 
+  const fieldClass =
+    "w-full rounded-xl border bg-slate-950/80 px-4 py-3 text-sm text-white placeholder-slate-500 transition-colors focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500";
+
   return (
-    <div className="glass-panel-gold rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-2xl">
+    <div className="glass-panel-gold relative overflow-hidden rounded-3xl p-6 shadow-2xl sm:p-10">
       <AnimatePresence mode="wait">
-        {!submitted ? (
+        {status !== "sent" ? (
           <motion.form
             key="contact-form"
             initial={{ opacity: 0 }}
@@ -38,57 +74,44 @@ export function ContactForm() {
             noValidate
           >
             <div className="grid gap-5 sm:grid-cols-2">
-              <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
-                  Your Full Name <span className="text-amber-400">*</span>
-                </label>
+              <Field label="Your full name" required error={errors.name}>
                 <input
                   type="text"
-                  required
+                  autoComplete="name"
                   placeholder="e.g. Pastor David Adebayo"
-                  className="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  className={`${fieldClass} ${errors.name ? "border-rose-400/60" : "border-slate-800"}`}
+                  value={values.name}
+                  onChange={(e) => setField("name", e.target.value)}
                 />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
-                  Email Address <span className="text-amber-400">*</span>
-                </label>
+              </Field>
+              <Field label="Email address" required error={errors.email}>
                 <input
                   type="email"
-                  required
+                  autoComplete="email"
                   placeholder="pastor@yourchurch.org"
-                  className="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  className={`${fieldClass} ${errors.email ? "border-rose-400/60" : "border-slate-800"}`}
+                  value={values.email}
+                  onChange={(e) => setField("email", e.target.value)}
                 />
-              </div>
+              </Field>
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
-              <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
-                  Church / Ministry Name
-                </label>
+              <Field label="Church / ministry name" error={errors.church}>
                 <input
                   type="text"
+                  autoComplete="organization"
                   placeholder="e.g. Grace Assembly Cathedral"
-                  className="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
-                  value={church}
-                  onChange={(e) => setChurch(e.target.value)}
+                  className={`${fieldClass} ${errors.church ? "border-rose-400/60" : "border-slate-800"}`}
+                  value={values.church ?? ""}
+                  onChange={(e) => setField("church", e.target.value)}
                 />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
-                  Ministry Role
-                </label>
+              </Field>
+              <Field label="Ministry role" error={errors.role}>
                 <select
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                  className="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-4 py-3 text-sm text-white focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                  value={values.role}
+                  onChange={(e) => setField("role", e.target.value)}
+                  className={`${fieldClass} border-slate-800`}
                 >
                   <option value="Lead Pastor">Lead Pastor / Senior Minister</option>
                   <option value="Executive Pastor">Executive Pastor / Administrator</option>
@@ -96,80 +119,102 @@ export function ContactForm() {
                   <option value="Ministry Leader">Worship / Youth Leader</option>
                   <option value="IT Director">IT / Operations Director</option>
                 </select>
-              </div>
+              </Field>
             </div>
 
-            <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
-                Congregation Size
-              </label>
+            <Field label="Congregation size" error={errors.size}>
               <select
-                value={size}
-                onChange={(e) => setSize(e.target.value)}
-                className="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-4 py-3 text-sm text-white focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                value={values.size}
+                onChange={(e) => setField("size", e.target.value)}
+                className={`${fieldClass} border-slate-800`}
               >
-                <option value="Planting (< 100 members)">Planting Congregation (&lt; 100 members)</option>
-                <option value="100-500 members">Growing Fellowship (100 - 500 members)</option>
-                <option value="500-2,000 members">Large Cathedral (500 - 2,000 members)</option>
-                <option value="Multi-site Network (2,000+ members)">Multi-site Network (2,000+ members)</option>
+                <option value="Planting (< 100 members)">Planting congregation (under 100)</option>
+                <option value="100-500 members">Growing fellowship (100–500)</option>
+                <option value="500-2,000 members">Large cathedral (500–2,000)</option>
+                <option value="Multi-site Network (2,000+ members)">Multi-site network (2,000+)</option>
               </select>
-            </div>
+            </Field>
 
-            <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
-                How Can Ekklesia Serve Your Church? <span className="text-amber-400">*</span>
-              </label>
+            <Field label="How can Ekklesia serve your church?" required error={errors.message}>
               <textarea
                 rows={4}
-                required
-                placeholder="Tell us about your member care, giving, or event needs..."
-                className="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Tell us about member care, giving, or event needs..."
+                className={`${fieldClass} ${errors.message ? "border-rose-400/60" : "border-slate-800"}`}
+                value={values.message}
+                onChange={(e) => setField("message", e.target.value)}
               />
-            </div>
+            </Field>
 
-            {error && (
-              <p className="text-xs text-rose-400 bg-rose-500/10 border border-rose-500/20 p-3 rounded-lg font-medium">
-                Please fill in your name, email address, and a message so our platform team can reach out.
+            {errors.form ? (
+              <p className="rounded-lg border border-rose-500/20 bg-rose-500/10 p-3 text-xs font-medium text-rose-400">
+                {errors.form}
               </p>
-            )}
+            ) : null}
 
             <button
               type="submit"
-              className="w-full rounded-full border border-amber-500/60 bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 py-4 text-xs font-bold uppercase tracking-wider text-slate-950 shadow-xl shadow-amber-500/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              disabled={status === "saving"}
+              className="w-full rounded-full border border-amber-500/60 bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 py-4 text-xs font-semibold uppercase tracking-[0.14em] text-slate-950 shadow-xl shadow-amber-500/30 transition-all hover:scale-[1.015] active:scale-[0.98] disabled:cursor-wait disabled:opacity-70"
             >
-              Request A Sacred Demo
+              {status === "saving" ? "Sending…" : "Request a demo"}
             </button>
           </motion.form>
         ) : (
           <motion.div
             key="form-success"
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-center py-12 space-y-5"
+            className="space-y-5 py-12 text-center"
           >
-            <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500/50 text-amber-300 flex items-center justify-center text-3xl mx-auto shadow-2xl shadow-amber-500/30">
-              ✨
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-amber-500/50 bg-amber-500/20 text-2xl text-amber-300 shadow-2xl shadow-amber-500/30">
+              ✓
             </div>
             <h3 className="prose-cinzel text-2xl font-bold text-white">
-              Demo Request Received!
+              We received your request
             </h3>
-            <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
-              Thank you, <strong className="text-amber-300">{name}</strong>. Our church platform specialist will contact you at <strong className="text-amber-300">{email}</strong> to schedule a walk-through for <strong className="text-amber-300">{church || "your congregation"}</strong>.
+            <p className="mx-auto max-w-md text-sm leading-relaxed text-slate-300">
+              Thank you, <strong className="text-amber-300">{values.name}</strong>. We will
+              write to <strong className="text-amber-300">{values.email}</strong> to set a
+              walk-through for{" "}
+              <strong className="text-amber-300">{values.church || "your congregation"}</strong>.
             </p>
-            <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300 max-w-md mx-auto">
-              &quot;Commit thy works unto the LORD, and thy thoughts shall be established.&quot; — Proverbs 16:3
-            </div>
             <button
-              onClick={() => setSubmitted(false)}
-              className="px-6 py-2.5 rounded-full border border-slate-800 bg-slate-900 text-xs font-semibold text-slate-300 hover:text-white"
+              type="button"
+              onClick={() => {
+                setValues(empty);
+                setErrors({});
+                setStatus("idle");
+              }}
+              className="rounded-full border border-slate-800 bg-slate-900 px-6 py-2.5 text-xs font-semibold text-slate-300 hover:text-white"
             >
-              Submit Another Request
+              Send another request
             </button>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+function Field({
+  label,
+  required,
+  error,
+  children,
+}: {
+  label: string;
+  required?: boolean;
+  error?: string;
+  children: ReactNode;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-300">
+        {label}
+        {required ? <span className="text-amber-400"> *</span> : null}
+      </span>
+      {children}
+      {error ? <span className="mt-1.5 block text-xs text-rose-400">{error}</span> : null}
+    </label>
   );
 }

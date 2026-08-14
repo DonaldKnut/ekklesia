@@ -38,7 +38,7 @@ export function PrayerWallInteractive() {
             <h2 className="prose-cinzel text-3xl sm:text-4xl font-bold text-white tracking-tight leading-snug">
               &quot;For where two or three gather in my name, there am I with them.&quot;
             </h2>
-            <p className="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+            <p className="prose-subtitle mt-4 text-lg text-slate-200/85">
               Ekklesia isn&apos;t just software for lists — it&apos;s a spiritual sanctuary. Share prayer requests privately or with your church intercessory ministry, track answered prayers, and encourage your congregation through authentic testimony.
             </p>
             

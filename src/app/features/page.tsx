@@ -4,39 +4,40 @@ import { FadeRise } from "@/components/motion";
 import { featureGroups } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Features",
+  title: "Features Matrix",
   description:
-    "See what Ekklesia can do — people, events, giving, prayer, messages, and more.",
+    "Explore Ekklesia's full suite of tools for church administration, worship events, Paystack & Stripe giving, and spiritual life.",
 };
 
 export default function FeaturesPage() {
   return (
-    <div className="pt-24">
-      <section className="atmosphere relative overflow-hidden border-b border-line py-20 sm:py-24">
-        <div className="grain" />
-        <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
+    <div className="pt-24 bg-slate-950 min-h-screen text-white">
+      {/* Header Banner */}
+      <section className="relative overflow-hidden border-b border-amber-500/20 py-24 sm:py-32">
+        <div className="absolute inset-0 sacred-atmosphere opacity-60 pointer-events-none" />
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
           <FadeRise>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-teal">
-              Features
-            </p>
-            <h1 className="prose-display mt-4 max-w-3xl text-4xl text-ink sm:text-6xl">
-              Everything your church needs in one place.
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs font-semibold uppercase tracking-widest mb-4">
+              <span>💎</span> Comprehensive Ministry Matrix
+            </div>
+            <h1 className="prose-cinzel text-4xl sm:text-6xl font-bold tracking-tight text-white max-w-4xl leading-tight">
+              Everything Your Sanctuary Needs in One Safe Place.
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-soft sm:text-lg">
-              From the first visitor to monthly giving and pastoral care — these
-              tools are ready for your website or app to use.
+            <p className="mt-5 max-w-2xl text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+              From first-time visitor welcoming to recurring tithes and pastoral prayer intercession — every tool is designed to work seamlessly together.
             </p>
           </FadeRise>
 
+          {/* Quick Group Jumper */}
           <nav
-            className="mt-12 flex flex-wrap gap-x-5 gap-y-2 border-t border-line pt-8"
-            aria-label="Feature groups"
+            className="mt-12 flex flex-wrap gap-3 border-t border-slate-800 pt-8"
+            aria-label="Feature groups navigation"
           >
             {featureGroups.map((group) => (
               <a
                 key={group.id}
                 href={`#${group.id}`}
-                className="focus-ring text-sm text-ink-soft transition-colors hover:text-teal"
+                className="focus-ring rounded-full border border-slate-800 bg-slate-900/80 px-4 py-2 text-xs font-semibold text-slate-300 transition-all hover:border-amber-500/50 hover:text-amber-300 hover:scale-105"
               >
                 {group.title}
               </a>
@@ -45,52 +46,63 @@ export default function FeaturesPage() {
         </div>
       </section>
 
+      {/* Feature Groups List */}
       {featureGroups.map((group, gi) => (
         <section
           key={group.id}
           id={group.id}
-          className={`scroll-mt-24 border-b border-line py-20 sm:py-24 ${
-            gi % 2 === 0 ? "bg-white" : "bg-stone"
+          className={`scroll-mt-24 border-b border-amber-500/10 py-20 sm:py-24 ${
+            gi % 2 === 0 ? "bg-slate-950" : "bg-slate-900/50"
           }`}
         >
-          <div className="mx-auto max-w-6xl px-5 sm:px-8">
+          <div className="mx-auto max-w-7xl px-6 lg:px-12">
             <FadeRise>
-              <h2 className="prose-display text-3xl text-ink sm:text-4xl">
+              <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
+                Pillar 0{gi + 1}
+              </span>
+              <h2 className="prose-cinzel mt-1 text-3xl sm:text-4xl font-bold text-white">
                 {group.title}
               </h2>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft">
+              <p className="mt-3 max-w-2xl text-base text-slate-300 font-light">
                 {group.intro}
               </p>
             </FadeRise>
 
-            <ul className="mt-12 space-y-10">
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {group.items.map((item, i) => (
                 <FadeRise key={item.name} delay={0.04 * (i + 1)}>
-                  <li className="grid gap-2 border-t border-line pt-8 sm:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] sm:gap-10">
-                    <h3 className="text-lg font-medium tracking-tight text-ink">
+                  <div className="glass-panel-hover rounded-2xl border border-slate-800 bg-slate-900/80 p-6 h-full space-y-3">
+                    <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm font-bold">
+                      ✓
+                    </div>
+                    <h3 className="text-lg font-bold text-white">
                       {item.name}
                     </h3>
-                    <p className="text-base leading-relaxed text-ink-soft">
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                       {item.detail}
                     </p>
-                  </li>
+                  </div>
                 </FadeRise>
               ))}
-            </ul>
+            </div>
           </div>
         </section>
       ))}
 
-      <section className="bg-ink py-20 text-white">
-        <div className="mx-auto max-w-6xl px-5 text-center sm:px-8">
-          <h2 className="prose-display text-3xl sm:text-4xl">
-            Want to see it for your church?
+      {/* Bottom CTA */}
+      <section className="bg-slate-950 py-20 border-t border-amber-500/20">
+        <div className="mx-auto max-w-5xl px-6 text-center lg:px-12">
+          <h2 className="prose-cinzel text-3xl sm:text-4xl font-bold text-white">
+            Ready to See Ekklesia in Action for Your Church?
           </h2>
+          <p className="mt-4 text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
+            Book a personalized walkthrough with our church platform team.
+          </p>
           <Link
             href="/contact"
-            className="focus-ring mt-8 inline-flex rounded-sm bg-teal px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-teal-deep"
+            className="focus-ring mt-8 inline-flex rounded-full border border-amber-500/50 bg-gradient-to-r from-amber-500 to-amber-600 px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-slate-950 shadow-lg shadow-amber-500/25 transition-all hover:scale-105"
           >
-            Book a demo
+            Book A Demo Today
           </Link>
         </div>
       </section>

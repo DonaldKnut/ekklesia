@@ -1,35 +1,40 @@
 import { whyPoints } from "@/lib/content";
 import { FadeRise } from "@/components/motion";
 
+const icons = ["🏛️", "🛡️", "⚙️", "🕊️"];
+
 export function SectionWhy() {
   return (
-    <section className="relative overflow-hidden border-b border-line bg-ink py-24 text-white sm:py-28">
-      <div
-        className="absolute inset-0 opacity-60"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 50% at 80% 10%, rgba(11,110,107,0.35), transparent 55%), radial-gradient(ellipse 50% 40% at 10% 90%, rgba(166,124,82,0.15), transparent 50%)",
-        }}
-      />
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
+    <section className="relative overflow-hidden border-b border-amber-500/20 bg-slate-950 py-24 sm:py-32">
+      {/* Sacred light atmosphere */}
+      <div className="absolute inset-0 sacred-atmosphere pointer-events-none opacity-40" />
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
         <FadeRise>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-teal-mist">
-            Why Ekklesia
-          </p>
-          <h2 className="prose-display mt-4 max-w-3xl text-4xl sm:text-5xl">
-            Built for real churches — and serious about safety.
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs font-semibold uppercase tracking-widest mb-4">
+            <span>🛡️</span> Sanctuary Governance & Safety
+          </div>
+          <h2 className="prose-cinzel text-3xl sm:text-5xl font-bold tracking-tight text-white max-w-3xl leading-tight">
+            Designed for Real Churches — Secured with Integrity.
           </h2>
         </FadeRise>
 
-        <div className="mt-16 grid gap-12 md:grid-cols-2">
+        <div className="mt-16 grid gap-8 md:grid-cols-2">
           {whyPoints.map((point, i) => (
             <FadeRise key={point.title} delay={0.07 * (i + 1)}>
-              <h3 className="text-lg font-medium tracking-tight text-white">
-                {point.title}
-              </h3>
-              <p className="mt-3 text-base leading-relaxed text-white/65">
-                {point.body}
-              </p>
+              <div className="glass-panel-hover rounded-2xl border border-slate-800 bg-slate-900/70 p-8 h-full space-y-4 shadow-xl">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-xl shadow-inner">
+                    {icons[i] || "🛡️"}
+                  </div>
+                  <h3 className="prose-cinzel text-xl font-bold text-white">
+                    {point.title}
+                  </h3>
+                </div>
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+                  {point.body}
+                </p>
+              </div>
             </FadeRise>
           ))}
         </div>

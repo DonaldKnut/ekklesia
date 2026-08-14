@@ -1,8 +1,20 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Sora } from "next/font/google";
+import { Cinzel, Plus_Jakarta_Sans, Instrument_Serif, Sora } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  variable: "--font-cinzel",
+  display: "swap",
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
 
 const instrument = Instrument_Serif({
   weight: "400",
@@ -38,10 +50,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${instrument.variable} ${sora.variable} antialiased`}>
+    <html lang="en" className="dark">
+      <body
+        className={`${cinzel.variable} ${jakarta.variable} ${instrument.variable} ${sora.variable} font-sans antialiased selection:bg-amber-500/30 selection:text-amber-200`}
+      >
         <SiteHeader />
-        <main>{children}</main>
+        <main className="min-h-screen">{children}</main>
         <SiteFooter />
       </body>
     </html>

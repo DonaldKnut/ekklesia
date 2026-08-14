@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { carouselSlides } from "@/lib/content";
-import { FadeRise } from "@/components/motion";
 
 const AUTO_MS = 6500;
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -79,9 +78,9 @@ export function ImageCarousel() {
 
   return (
     <section
-      className="border-b border-line bg-ink py-20 text-white sm:py-24"
+      className="relative border-b border-amber-500/20 bg-slate-950 py-20 text-white sm:py-28 overflow-hidden"
       aria-roledescription="carousel"
-      aria-label="Life in the church"
+      aria-label="Sanctuary and Church Life Gallery"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
@@ -91,18 +90,27 @@ export function ImageCarousel() {
         }
       }}
     >
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <FadeRise>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-teal-mist">
-            In the life of the church
-          </p>
-          <h2 className="prose-display mt-4 max-w-2xl text-3xl sm:text-5xl">
-            See what Ekklesia helps you do.
-          </h2>
-        </FadeRise>
+      {/* Background glow */}
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-amber-500/10 blur-[130px] rounded-full pointer-events-none" />
 
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs font-semibold uppercase tracking-widest mb-3">
+              <span>🖼️</span> Sanctuary Visual Gallery
+            </div>
+            <h2 className="prose-cinzel text-3xl sm:text-5xl font-bold tracking-tight text-white">
+              Life In The Body Of Christ
+            </h2>
+          </div>
+          <p className="text-slate-300 text-sm sm:text-base max-w-md">
+            Explore how Ekklesia transforms fellowship, worship, intercession, and stewardship across your entire church ecosystem.
+          </p>
+        </div>
+
+        {/* Main Carousel Frame */}
         <div
-          className="relative mt-12 overflow-hidden rounded-sm"
+          className="glass-panel-gold relative overflow-hidden rounded-2xl shadow-2xl shadow-black/90"
           onTouchStart={(e) => {
             touchX.current = e.touches[0]?.clientX ?? null;
           }}
@@ -120,41 +128,42 @@ export function ImageCarousel() {
               <motion.div
                 key={slide.id}
                 className="absolute inset-0"
-                initial={{ opacity: 0, scale: 1.04 }}
+                initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.7, ease }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.8, ease }}
               >
                 <Image
                   src={slide.src}
                   alt={slide.alt}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 1152px) 100vw, 1152px"
+                  sizes="(max-width: 1280px) 100vw, 1280px"
                   priority={index === 0}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-ink/50 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-transparent to-transparent" />
               </motion.div>
             </AnimatePresence>
 
-            <div className="absolute inset-x-0 bottom-0 z-10 p-6 sm:p-10">
+            {/* Slide Description Glass Card */}
+            <div className="absolute inset-x-0 bottom-0 z-10 p-6 sm:p-12">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${slide.id}-copy`}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.45, ease }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.5, ease }}
+                  className="max-w-2xl rounded-2xl border border-amber-500/30 bg-slate-950/80 p-6 sm:p-8 backdrop-blur-xl shadow-2xl"
                 >
-                  <p className="text-xs font-medium uppercase tracking-[0.18em] text-teal-mist">
-                    {String(index + 1).padStart(2, "0")} /{" "}
-                    {String(count).padStart(2, "0")}
-                  </p>
-                  <h3 className="prose-display mt-2 text-3xl sm:text-4xl">
+                  <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
+                    {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")} — Ministry Focus
+                  </span>
+                  <h3 className="prose-cinzel mt-2 text-2xl sm:text-4xl font-bold text-white leading-tight">
                     {slide.title}
                   </h3>
-                  <p className="mt-2 max-w-lg text-sm text-white/70 sm:text-base">
+                  <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
                     {slide.caption}
                   </p>
                 </motion.div>
@@ -162,15 +171,17 @@ export function ImageCarousel() {
             </div>
           </div>
 
+          {/* Top Progress Bar */}
           <div
-            className="absolute left-0 top-0 z-20 h-0.5 bg-teal transition-[width] duration-100 ease-linear"
+            className="absolute left-0 top-0 z-20 h-1 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-300 shadow-sm shadow-amber-500 transition-[width] duration-100 ease-linear"
             style={{ width: `${progress}%` }}
             aria-hidden
           />
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-2" role="tablist" aria-label="Slides">
+        {/* Carousel Navigation Bar */}
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-6">
+          <div className="flex items-center gap-3" role="tablist" aria-label="Slides">
             {carouselSlides.map((s, i) => (
               <button
                 key={s.id}
@@ -178,41 +189,41 @@ export function ImageCarousel() {
                 role="tab"
                 aria-selected={i === index}
                 aria-label={`Show slide ${i + 1}: ${s.title}`}
-                className={`focus-ring h-2 rounded-full transition-all ${
+                className={`focus-ring h-2.5 rounded-full transition-all ${
                   i === index
-                    ? "w-8 bg-teal"
-                    : "w-2 bg-white/25 hover:bg-white/45"
+                    ? "w-10 bg-gradient-to-r from-amber-500 to-amber-300 shadow-md shadow-amber-500/50"
+                    : "w-3 bg-slate-800 hover:bg-slate-700"
                 }`}
                 onClick={() => goTo(i)}
               />
             ))}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               type="button"
-              className="focus-ring rounded-sm border border-white/20 px-3 py-2 text-sm text-white/80 transition-colors hover:border-white/50 hover:text-white"
+              className="focus-ring rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 transition-all hover:border-amber-500/50 hover:text-white"
               onClick={goPrev}
               aria-label="Previous slide"
             >
-              Prev
+              ← Prev
             </button>
             <button
               type="button"
-              className="focus-ring rounded-sm border border-white/20 px-3 py-2 text-sm text-white/80 transition-colors hover:border-white/50 hover:text-white"
+              className="focus-ring rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-amber-400 transition-all hover:border-amber-500/50 hover:text-amber-300"
               onClick={() => setPaused((p) => !p)}
               aria-pressed={paused}
               aria-label={paused ? "Play slideshow" : "Pause slideshow"}
             >
-              {paused ? "Play" : "Pause"}
+              {paused ? "▶ Play" : "⏸ Pause"}
             </button>
             <button
               type="button"
-              className="focus-ring rounded-sm border border-white/20 px-3 py-2 text-sm text-white/80 transition-colors hover:border-white/50 hover:text-white"
+              className="focus-ring rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 transition-all hover:border-amber-500/50 hover:text-white"
               onClick={goNext}
               aria-label="Next slide"
             >
-              Next
+              Next →
             </button>
           </div>
         </div>

@@ -8,24 +8,31 @@ export const navLinks = [
 export const carouselSlides = [
   {
     id: "gathering",
-    src: "https://res.cloudinary.com/ddgzzjp4x/image/upload/v1786309941/People_in_church_gathering_2K_202608092209_za6txu.jpg",
-    alt: "Congregation gathered in church during worship",
-    title: "Keep people connected",
-    caption: "Members, guests, and families — known and cared for in one place.",
+    src: "/images/carousel-gathering.png",
+    alt: "Congregation gathered in church during fellowship and worship",
+    title: "Keep your people connected",
+    caption: "Members, first-time guests, and volunteer teams — known, loved, and cared for in one unified home.",
   },
   {
     id: "worship",
-    src: "https://res.cloudinary.com/ddgzzjp4x/image/upload/v1786309941/Warm_church_atmosphere_in_setting_202608092209_ionymv.jpg",
-    alt: "Warm church service with prayer and worship",
-    title: "Run every gathering well",
-    caption: "Services, events, and reminders that help Sunday run smoothly.",
+    src: "/images/carousel-worship.png",
+    alt: "Warm, inspiring church worship service",
+    title: "Run every gathering smoothly",
+    caption: "Service planning, volunteer scheduling, ticket management, and sermon media in one place.",
   },
   {
     id: "prayer",
-    src: "https://res.cloudinary.com/ddgzzjp4x/image/upload/v1786309940/Warm_church_atmosphere_in_Nigeria_202608092211_i9tq3y.jpg",
-    alt: "Woman in prayer during a church service in Nigeria",
+    src: "/images/carousel-prayer.png",
+    alt: "Intimate bowed Christian prayer scene with open Bible",
     title: "Pray and grow together",
-    caption: "Prayer, devotionals, and testimonies — for life beyond Sunday.",
+    caption: "Intercessory prayer walls, pastoral counseling, daily devotionals, and verified testimony stories.",
+  },
+  {
+    id: "giving",
+    src: "/images/carousel-giving.png",
+    alt: "Dignified stewardship and offering scene",
+    title: "Steward gifts with transparent trust",
+    caption: "One-time and monthly recurring giving powered by Paystack & Stripe with complete financial auditing.",
   },
 ] as const;
 

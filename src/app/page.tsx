@@ -1,5 +1,8 @@
 import { Hero } from "@/components/hero";
+import { InteractiveDashboardPreview } from "@/components/interactive-dashboard-preview";
 import { ImageCarousel } from "@/components/image-carousel";
+import { PrayerWallInteractive } from "@/components/prayer-wall-interactive";
+import { GivingCalculator } from "@/components/giving-calculator";
 import { SectionCta } from "@/components/section-cta";
 import { SectionHighlights } from "@/components/section-highlights";
 import { SectionProblem } from "@/components/section-problem";
@@ -10,7 +13,10 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <InteractiveDashboardPreview />
       <ImageCarousel />
+      <PrayerWallInteractive />
+      <GivingCalculator />
       <SectionProblem />
       <SectionProduct />
       <SectionHighlights />
